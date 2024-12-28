@@ -1,0 +1,71 @@
+// Copyright © SixtyFPS GmbH <info@slint.dev>
+// SPDX-License-Identifier: MIT
+
+import { TaskListView, TaskListAdapter } from "./views/task_list_view.slint";
+export { TaskListAdapter }
+
+import { CreateTaskView, CreateTaskAdapter } from "./views/create_task_view.slint";
+export { CreateTaskAdapter }
+
+import { AnimationSettings } from "./widgets/styling.slint";
+import { Tabs } from "tabs.slint";
+import { TabWidget } from "std-widgets.slint";
+import { Tab1 } from "tab1.slint";
+
+export global NavigationAdapter {
+    out property <int> current-page;
+
+    public function next-page() {
+        root.current-page += 1;
+    }
+
+    public function previous-page() {
+        root.current-page = max(0, root.current-page - 1);
+    }
+}
+
+export component MainWindow inherits Window {
+    preferred-width: 600px;
+    preferred-height: 600px;
+    title: "Slint todo mvc example";
+    // Tabs {}
+    TabWidget {
+        Tab {
+            title: "Missions";
+            Tab1 {}
+        }
+        Tab {
+            title: "Radios";
+            Rectangle {
+                // border-color: yellow;
+                // border-width: 10px;
+                // padding: 30px;
+                x: -(NavigationAdapter.current-page * root.width);
+                width: 2 * root.width;
+
+                // if self.x > -root.width : TaskListView {
+                if NavigationAdapter.current-page == 0  : TaskListView {
+                    x: 0 + 10px;
+                    y: 10px;
+                    // padding: 20px;
+                    width: root.width - 20px;
+                    height: root.height - 35px;
+                }
+
+                // if self.x < 0 : CreateTaskView {
+                if NavigationAdapter.current-page == 1  : CreateTaskView {
+                    x: root.width + 20px;
+                    y: 10px;
+                    width: root.width - 40px;
+                    height: root.height - 35px;
+                }
+
+                animate x {
+                    duration: AnimationSettings.move-duration;
+                    easing: AnimationSettings.move-easing;
+                }
+            }
+        }
+    }
+
+}

@@ -37,6 +37,14 @@ export global FontSettings {
         font-size: 16 * 0.0769rem,
         font-weight: root.semi-bold-font-weight,
     };
+    out property <TextStyle> title1-strong: {
+        font-size: 22 * 0.0769rem,
+        font-weight: root.semi-bold-font-weight,
+    };
+    out property <TextStyle> title2-strong: {
+        font-size: 18 * 0.0769rem,
+        font-weight: root.semi-bold-font-weight,
+    };
 }
 
 export global SizeSettings {
@@ -54,5 +62,8 @@ export global SpaceSettings {
 export global Icons {
     out property <image> add: @image-url("../../assets/add.svg");
     out property <image> remove: @image-url("../../assets/remove.svg");
+    out property <image> settings: @image-url("../../assets/settings.svg");
     out property <image> close: @image-url("../../assets/close.svg");
+    out property <image> power: @image-url("../../assets/power.svg");
+    out property <image> list: @image-url("../../assets/list.svg");
 }

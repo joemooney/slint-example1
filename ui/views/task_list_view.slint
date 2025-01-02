@@ -9,7 +9,7 @@ import { SelectionListView, SelectionListViewItem } from "../widgets/selection_l
 export { SelectionListViewItem }
 
 import { ActionButton } from "../widgets/action_button.slint";
-import { Icons } from "../widgets/styling.slint";
+import { Icons, FontSettings } from "../widgets/styling.slint";
 
 export global TaskListAdapter {
     in-out property <[SelectionListViewItem]> tasks: [
@@ -47,7 +47,9 @@ export component TaskListView {
         padding-right: 10px;
         padding-bottom: 10px;
         Text {
-            text: "list of tasks";
+            text: "List of Test Tasks";
+            horizontal-alignment: center;
+            font-size: FontSettings.title2-strong.font-size;
         }
 
         SelectionListView {

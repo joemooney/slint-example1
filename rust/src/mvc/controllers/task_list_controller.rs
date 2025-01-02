@@ -1,6 +1,3 @@
-// Copyright © SixtyFPS GmbH <info@slint.dev>
-// SPDX-License-Identifier: MIT
-
 use std::rc::Rc;
 
 use slint::Model;
@@ -116,8 +113,8 @@ mod tests {
 
     fn test_controller() -> TaskListController {
         TaskListController::new(mvc::MockTaskRepository::new(vec![
-            mvc::TaskModel { title: "Item 1".into(), due_date: 1, done: true, priority: "low" },
-            mvc::TaskModel { title: "Item 2".into(), due_date: 1, done: false, priority: "low" },
+            mvc::TaskModel { title: "Item 1".into(), due_date: 1, done: true, priority: "low".into() },
+            mvc::TaskModel { title: "Item 2".into(), due_date: 1, done: false, priority: "low".into() },
         ]))
     }
 
@@ -129,11 +126,11 @@ mod tests {
         assert_eq!(task_model.row_count(), 2);
         assert_eq!(
             task_model.row_data(0),
-            Some(mvc::TaskModel { title: "Item 1".into(), due_date: 1, done: true, priority: "low" },)
+            Some(mvc::TaskModel { title: "Item 1".into(), due_date: 1, done: true, priority: "low".into() },)
         );
         assert_eq!(
             task_model.row_data(1),
-            Some(mvc::TaskModel { title: "Item 2".into(), due_date: 1, done: false, priority: "low" },)
+            Some(mvc::TaskModel { title: "Item 2".into(), due_date: 1, done: false, priority: "low".into() },)
         );
     }
 
@@ -158,7 +155,7 @@ mod tests {
 
         assert_eq!(
             task_model.row_data(0),
-            Some(mvc::TaskModel { title: "Item 2".into(), due_date: 1, done: false, priority: "low" },)
+            Some(mvc::TaskModel { title: "Item 2".into(), due_date: 1, done: false, priority: "low".into() },)
         );
     }
 
@@ -192,7 +189,7 @@ mod tests {
 
         assert_eq!(
             task_model.row_data(2),
-            Some(mvc::TaskModel { title: "Item 3".into(), due_date: 3, done: false, priority: "low" },)
+            Some(mvc::TaskModel { title: "Item 3".into(), due_date: 3, done: false, priority: "low".into() },)
         );
     }
 }

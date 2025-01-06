@@ -51,7 +51,7 @@ pub fn connect(view_handle: &ui::MainWindow, controller: FrequencyPresetListCont
                 println!("getting frequency preset for edit");
                 if let Some(preset) = controller.get_preset(index as usize) {
                     println!("edit preset {}", preset.frequency_preset_name);
-                    set_frequency(index, preset, &view_handle.unwrap().global::<ui::CreateFrequencyPresetAdapter>());
+                    set_frequency(index, preset, &view_handle.unwrap().global::<ui::FrequencyPresetAdapter>());
                 }
                 println!("show edit frequency preset");
                 controller.show_edit_frequency_preset();
@@ -63,7 +63,7 @@ pub fn connect(view_handle: &ui::MainWindow, controller: FrequencyPresetListCont
         let view_handle = view_handle.as_weak();
         move |adapter: ui::FrequencyPresetListAdapter, controller| {
             adapter.on_show_create_frequency_preset(move || {
-                clear_frequency(&view_handle.unwrap().global::<ui::CreateFrequencyPresetAdapter>());
+                clear_frequency(&view_handle.unwrap().global::<ui::FrequencyPresetAdapter>());
                 controller.show_create_frequency_preset();
             })
         }
@@ -71,7 +71,7 @@ pub fn connect(view_handle: &ui::MainWindow, controller: FrequencyPresetListCont
 }
 
 
-fn set_frequency(index: i32, preset: FrequencyPresetModel, adapter: &ui::CreateFrequencyPresetAdapter) {
+fn set_frequency(index: i32, preset: FrequencyPresetModel, adapter: &ui::FrequencyPresetAdapter) {
     println!("setting frequency preset for edit");
     adapter.set_index(index);
     adapter.set_mode("Update".into());
@@ -85,7 +85,7 @@ fn set_frequency(index: i32, preset: FrequencyPresetModel, adapter: &ui::CreateF
     // adapter.set_freq3(preset.values.freq3_csv().into());
 }
 
-fn clear_frequency(adapter: &ui::CreateFrequencyPresetAdapter) {
+fn clear_frequency(adapter: &ui::FrequencyPresetAdapter) {
     adapter.set_mode("Create".into());
     adapter.set_preset(map_frequency_preset_to_slint(FrequencyPresetModel::default()));
     // adapter.set_preset_name("".into());

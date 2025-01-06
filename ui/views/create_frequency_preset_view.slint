@@ -3,55 +3,56 @@ import { MyComboBox } from "../common.slint";
 import { IconButton } from "../widgets/icon_button.slint";
 import { TextButton } from "../widgets/text_button.slint";
 import { Icons, FontSettings, TodoPalette, SpaceSettings } from "../widgets/styling.slint";
+import { FrequencyPresetAdapter } from "../adapters/frequency_adapter.slint";
 
-@rust-attr(derive(serde::Serialize, serde::Deserialize))
-export struct FrequencyPresetSlintStruct {
-    preset_name: string,
-    preset_desc: string,
-    preset_details: string,
-    checked: bool,
-    freq1: float,
-    freq2: float,
-    freq3: string,
-}
+// @rust-attr(derive(serde::Serialize, serde::Deserialize))
+// export struct FrequencyPresetSlintStruct {
+//     preset_name: string,
+//     preset_desc: string,
+//     preset_details: string,
+//     checked: bool,
+//     freq1: float,
+//     freq2: float,
+//     freq3: string,
+// }
 
-export global CreateFrequencyPresetAdapter {
-    in-out property <int> index;  /* row if we are editing */
-    in-out property <string> mode: "Create";  /* changes to Update if we are editing */
-    in-out property <FrequencyPresetSlintStruct> preset;  /* changes to Update if we are editing */
-    // in-out property <string> preset-name: 0;
-    // in-out property <string> preset-desc: 0;
-    // in-out property <float> freq1: 0;
-    // in-out property <float> freq2: 0;
-    // in-out property <string> freq3: "";
+// export global FrequencyPresetAdapter {
+//     in-out property <int> index;  /* row if we are editing */
+//     in-out property <string> mode: "Create";  /* changes to Update if we are editing */
+//     in-out property <FrequencyPresetSlintStruct> preset;  /* changes to Update if we are editing */
+//     // in-out property <string> preset-name: 0;
+//     // in-out property <string> preset-desc: 0;
+//     // in-out property <float> freq1: 0;
+//     // in-out property <float> freq2: 0;
+//     // in-out property <string> freq3: "";
 
-    // callback create(
-    //     /* preset-name */ string, 
-    //     /* preset-desc */ string, 
-    //     /* freq1 */ float,
-    //     /* freq2 */ float,
-    //     /* freq3_csv_list */ string,
-    //     );
-    // callback update(
-    //     /* index */ int, 
-    //     /* preset-name */ string, 
-    //     /* preset-desc */ string, 
-    //     /* freq1 */ float,
-    //     /* freq2 */ float,
-    //     /* freq3_csv_list */ string,
-    //     );
-    callback create(
-        /* preset */ FrequencyPresetSlintStruct, 
-        );
-    callback update(
-        /* index */ int, 
-        /* preset */ FrequencyPresetSlintStruct, 
-        );
-    callback back();
-    pure callback validate_preset-name(string) -> bool;
-    pure callback validate_freq3(string) -> bool;
+//     // callback create(
+//     //     /* preset-name */ string, 
+//     //     /* preset-desc */ string, 
+//     //     /* freq1 */ float,
+//     //     /* freq2 */ float,
+//     //     /* freq3_csv_list */ string,
+//     //     );
+//     // callback update(
+//     //     /* index */ int, 
+//     //     /* preset-name */ string, 
+//     //     /* preset-desc */ string, 
+//     //     /* freq1 */ float,
+//     //     /* freq2 */ float,
+//     //     /* freq3_csv_list */ string,
+//     //     );
+//     callback create(
+//         /* preset */ FrequencyPresetSlintStruct, 
+//         );
+//     callback update(
+//         /* index */ int, 
+//         /* preset */ FrequencyPresetSlintStruct, 
+//         );
+//     callback back();
+//     pure callback validate_preset-name(string) -> bool;
+//     pure callback validate_freq3(string) -> bool;
 
-}
+// }
 
 export component CreateFrequencyPresetView {
     VerticalBox {
@@ -64,7 +65,7 @@ export component CreateFrequencyPresetView {
 
                 clicked => {
                     root.reset();
-                    CreateFrequencyPresetAdapter.back();
+                    FrequencyPresetAdapter.back();
                 }
             }
 
@@ -73,12 +74,12 @@ export component CreateFrequencyPresetView {
 
 
             Button {
-                text: CreateFrequencyPresetAdapter.mode;
+                text: FrequencyPresetAdapter.mode;
                 enabled: preset-name-input.text != "";
                 primary: true;
 
                 clicked => {
-                    if CreateFrequencyPresetAdapter.mode == "Create" {
+                    if FrequencyPresetAdapter.mode == "Create" {
                         root.create();
                     } else {
                         root.update();
@@ -101,7 +102,7 @@ export component CreateFrequencyPresetView {
 
             Rectangle { } // spacer
             preset-name-input := LineEdit {
-                text: CreateFrequencyPresetAdapter.preset.preset-name;
+                text: FrequencyPresetAdapter.preset.preset-name;
                 placeholder-text: @tr("FrequencyPreset Name (alphanumber, underscore, hyphen)");
                 accessible-label: preset-name-label.text;
             }
@@ -117,7 +118,7 @@ export component CreateFrequencyPresetView {
 
             Rectangle { } // spacer
             preset-desc-input := LineEdit {
-                text: CreateFrequencyPresetAdapter.preset.preset-desc;
+                text: FrequencyPresetAdapter.preset.preset-desc;
                 placeholder-text: @tr("FrequencyPreset Description");
                 accessible-label: preset-desc-label.text;
             }
@@ -132,7 +133,7 @@ export component CreateFrequencyPresetView {
             }
             Rectangle { } // spacer
             freq1-input := SpinBox {
-                value: CreateFrequencyPresetAdapter.preset.freq1;
+                value: FrequencyPresetAdapter.preset.freq1;
                 minimum: -34.5;
                 maximum: 34.5;
                 accessible-label: freq1-label.text;
@@ -148,7 +149,7 @@ export component CreateFrequencyPresetView {
             }
             Rectangle { } // spacer
             freq2-input := SpinBox {
-                value: CreateFrequencyPresetAdapter.preset.freq2;
+                value: FrequencyPresetAdapter.preset.freq2;
                 minimum: -34.5;
                 maximum: 34.5;
                 accessible-label: freq2-label.text;
@@ -164,7 +165,7 @@ export component CreateFrequencyPresetView {
             }
             Rectangle { } // spacer
             freq3-input := TextEdit {
-                text: CreateFrequencyPresetAdapter.preset.freq3;
+                text: FrequencyPresetAdapter.preset.freq3;
                 accessible-label: freq3-label.text;
             }
 
@@ -182,18 +183,18 @@ export component CreateFrequencyPresetView {
 
 
     function update() {
-        CreateFrequencyPresetAdapter.back();
-        // CreateFrequencyPresetAdapter.update(
-        //     CreateFrequencyPresetAdapter.index,
+        FrequencyPresetAdapter.back();
+        // FrequencyPresetAdapter.update(
+        //     FrequencyPresetAdapter.index,
         //     preset-name-input.text, 
         //     preset-desc-input.text, 
         //     freq1-input.value, 
         //     freq2-input.value,
         //     freq3-input.text
         //     );
-        CreateFrequencyPresetAdapter.update(
-            CreateFrequencyPresetAdapter.index,
-            CreateFrequencyPresetAdapter.preset,
+        FrequencyPresetAdapter.update(
+            FrequencyPresetAdapter.index,
+            FrequencyPresetAdapter.preset,
             // preset-name-input.text, 
             // preset-desc-input.text, 
             // freq1-input.value, 
@@ -204,16 +205,16 @@ export component CreateFrequencyPresetView {
     }
 
     function create() {
-        CreateFrequencyPresetAdapter.back();
-        // CreateFrequencyPresetAdapter.create(
+        FrequencyPresetAdapter.back();
+        // FrequencyPresetAdapter.create(
         //     preset-name-input.text, 
         //     preset-desc-input.text, 
         //     freq1-input.value, 
         //     freq2-input.value, 
         //     freq3-input.text, 
         // );
-        CreateFrequencyPresetAdapter.create(
-            CreateFrequencyPresetAdapter.preset,
+        FrequencyPresetAdapter.create(
+            FrequencyPresetAdapter.preset,
         );
         root.reset();
     }

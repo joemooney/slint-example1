@@ -87,16 +87,6 @@ impl MissionListController {
         self.mission_model.push_mission(mission)
     }
 
-    pub fn show_create_mission(&self) {
-        self.show_create_mission_callback.invoke(&());
-    }
-
-    pub fn on_show_create_mission(&self, mut callback: impl FnMut() + 'static) {
-        self.show_create_mission_callback.on(move |()| {
-            callback();
-        });
-    }
-
     pub fn show_edit_mission(&self) {
         println!("mission_list_controller.rs show_edit_mission_callback.invoke");
         self.show_edit_mission_callback.invoke(&());
@@ -108,6 +98,17 @@ impl MissionListController {
             callback();
         });
     }    
+
+    pub fn show_create_mission(&self) {
+        self.show_create_mission_callback.invoke(&());
+    }
+
+    pub fn on_show_create_mission(&self, mut callback: impl FnMut() + 'static) {
+        self.show_create_mission_callback.on(move |()| {
+            callback();
+        });
+    }
+
 }
 
 #[derive(Clone)]

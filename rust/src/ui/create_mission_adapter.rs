@@ -14,18 +14,18 @@ use crate::{
 fn connect_with_controller(
     view_handle: &ui::MainWindow,
     controller: &CreateMissionController,
-    connect_adapter_controller: impl FnOnce(ui::CreateMissionAdapter, CreateMissionController) + 'static,
+    connect_adapter_controller: impl FnOnce(ui::MissionAdapter, CreateMissionController) + 'static,
 ) {
-    connect_adapter_controller(view_handle.global::<ui::CreateMissionAdapter>(), controller.clone());
+    connect_adapter_controller(view_handle.global::<ui::MissionAdapter>(), controller.clone());
 }
 
 // a helper function to make adapter and controller connection a little bit easier
 fn connect_with_mission_list_controller(
     view_handle: &ui::MainWindow,
     controller: &MissionListController,
-    connect_adapter_controller: impl FnOnce(ui::CreateMissionAdapter, MissionListController) + 'static,
+    connect_adapter_controller: impl FnOnce(ui::MissionAdapter, MissionListController) + 'static,
 ) {
-    connect_adapter_controller(view_handle.global::<ui::CreateMissionAdapter>(), controller.clone());
+    connect_adapter_controller(view_handle.global::<ui::MissionAdapter>(), controller.clone());
 }
 
 // one place to implement connection between adapter (view) and controller

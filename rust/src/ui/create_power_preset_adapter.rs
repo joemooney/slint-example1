@@ -10,18 +10,18 @@ use crate::{
 fn connect_with_controller(
     view_handle: &ui::MainWindow,
     controller: &CreatePowerPresetController,
-    connect_adapter_controller: impl FnOnce(ui::CreatePowerPresetAdapter, CreatePowerPresetController) + 'static,
+    connect_adapter_controller: impl FnOnce(ui::PowerPresetAdapter, CreatePowerPresetController) + 'static,
 ) {
-    connect_adapter_controller(view_handle.global::<ui::CreatePowerPresetAdapter>(), controller.clone());
+    connect_adapter_controller(view_handle.global::<ui::PowerPresetAdapter>(), controller.clone());
 }
 
 // a helper function to make adapter and controller connection a little bit easier
 fn connect_with_power_preset_list_controller(
     view_handle: &ui::MainWindow,
     controller: &PowerPresetListController,
-    connect_adapter_controller: impl FnOnce(ui::CreatePowerPresetAdapter, PowerPresetListController) + 'static,
+    connect_adapter_controller: impl FnOnce(ui::PowerPresetAdapter, PowerPresetListController) + 'static,
 ) {
-    connect_adapter_controller(view_handle.global::<ui::CreatePowerPresetAdapter>(), controller.clone());
+    connect_adapter_controller(view_handle.global::<ui::PowerPresetAdapter>(), controller.clone());
 }
 
 // one place to implement connection between adapter (view) and controller

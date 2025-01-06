@@ -11,18 +11,18 @@ use crate::{
 fn connect_with_controller(
     view_handle: &ui::MainWindow,
     controller: &CreateFrequencyPresetController,
-    connect_adapter_controller: impl FnOnce(ui::CreateFrequencyPresetAdapter, CreateFrequencyPresetController) + 'static,
+    connect_adapter_controller: impl FnOnce(ui::FrequencyPresetAdapter, CreateFrequencyPresetController) + 'static,
 ) {
-    connect_adapter_controller(view_handle.global::<ui::CreateFrequencyPresetAdapter>(), controller.clone());
+    connect_adapter_controller(view_handle.global::<ui::FrequencyPresetAdapter>(), controller.clone());
 }
 
 // a helper function to make adapter and controller connection a little bit easier
 fn connect_with_frequency_preset_list_controller(
     view_handle: &ui::MainWindow,
     controller: &FrequencyPresetListController,
-    connect_adapter_controller: impl FnOnce(ui::CreateFrequencyPresetAdapter, FrequencyPresetListController) + 'static,
+    connect_adapter_controller: impl FnOnce(ui::FrequencyPresetAdapter, FrequencyPresetListController) + 'static,
 ) {
-    connect_adapter_controller(view_handle.global::<ui::CreateFrequencyPresetAdapter>(), controller.clone());
+    connect_adapter_controller(view_handle.global::<ui::FrequencyPresetAdapter>(), controller.clone());
 }
 
 // one place to implement connection between adapter (view) and controller

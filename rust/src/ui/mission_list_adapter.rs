@@ -48,7 +48,7 @@ pub fn connect(view_handle: &ui::MainWindow, controller: MissionListController) 
                 println!("getting mission preset for edit");
                 if let Some(mission) = controller.get_mission(index as usize) {
                     println!("edit mission {}", mission.mission_name);
-                    set_mission(index, mission, &view_handle.unwrap().global::<ui::CreateMissionAdapter>());
+                    set_mission(index, mission, &view_handle.unwrap().global::<ui::MissionAdapter>());
                 }
                 println!("show edit mission");
                 controller.show_edit_mission();
@@ -60,7 +60,7 @@ pub fn connect(view_handle: &ui::MainWindow, controller: MissionListController) 
         let view_handle = view_handle.as_weak();
         move |adapter: ui::MissionListAdapter, controller| {
             adapter.on_show_create_mission(move || {
-                clear_mission(&view_handle.unwrap().global::<ui::CreateMissionAdapter>());
+                clear_mission(&view_handle.unwrap().global::<ui::MissionAdapter>());
                 println!("create mission");
                 controller.show_create_mission();
             })
@@ -68,7 +68,7 @@ pub fn connect(view_handle: &ui::MainWindow, controller: MissionListController) 
     });
 }
 
-fn set_mission(index: i32, mission: MissionModel, adapter: &ui::CreateMissionAdapter) {
+fn set_mission(index: i32, mission: MissionModel, adapter: &ui::MissionAdapter) {
     println!("setting mission for edit");
     adapter.set_index(index);
     adapter.set_mode("Update".into());
@@ -81,7 +81,7 @@ fn set_mission(index: i32, mission: MissionModel, adapter: &ui::CreateMissionAda
     // adapter.set_frequency_preset(mission.frequency_preset);
 }
 
-fn clear_mission(adapter: &ui::CreateMissionAdapter) {
+fn clear_mission(adapter: &ui::MissionAdapter) {
     adapter.set_mode("Create".into());
     adapter.set_mission(ui::MissionSlintStruct::default());
     // adapter.set_mission_name("".into());

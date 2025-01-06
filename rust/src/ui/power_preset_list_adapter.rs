@@ -53,10 +53,10 @@ pub fn connect(view_handle: &ui::MainWindow, controller: PowerPresetListControll
                 println!("getting power preset for edit");
                 if let Some(preset) = controller.get_preset(index as usize) {
                     println!("edit preset {}", preset.power_preset_name);
-                    // view_handle.unwrap().global::<ui::CreatePowerPresetAdapter>().set_preset_name(preset.power_preset_name.into());
-                    // view_handle.unwrap().global::<ui::CreatePowerPresetAdapter>().set_preset_desc(preset.power_preset_desc.into());
-                    // view_handle.unwrap().global::<ui::CreatePowerPresetAdapter>().set_power1(preset.values.power1.into());
-                    set_power(index, preset, &view_handle.unwrap().global::<ui::CreatePowerPresetAdapter>());
+                    // view_handle.unwrap().global::<ui::PowerPresetAdapter>().set_preset_name(preset.power_preset_name.into());
+                    // view_handle.unwrap().global::<ui::PowerPresetAdapter>().set_preset_desc(preset.power_preset_desc.into());
+                    // view_handle.unwrap().global::<ui::PowerPresetAdapter>().set_power1(preset.values.power1.into());
+                    set_power(index, preset, &view_handle.unwrap().global::<ui::PowerPresetAdapter>());
                 }
                 controller.show_edit_power_preset();
             })
@@ -68,7 +68,7 @@ pub fn connect(view_handle: &ui::MainWindow, controller: PowerPresetListControll
         let view_handle = view_handle.as_weak();
         move |adapter: ui::PowerPresetListAdapter, controller| {
             adapter.on_show_create_power_preset(move || {
-                clear_power(&view_handle.unwrap().global::<ui::CreatePowerPresetAdapter>());
+                clear_power(&view_handle.unwrap().global::<ui::PowerPresetAdapter>());
                 println!("create preset");
                 controller.show_create_power_preset();
             })
@@ -77,7 +77,7 @@ pub fn connect(view_handle: &ui::MainWindow, controller: PowerPresetListControll
 }
 
 /// Called when we are entering Update mode on a Power Preset
-fn set_power(index: i32, preset: PowerPresetModel, adapter: &ui::CreatePowerPresetAdapter) {
+fn set_power(index: i32, preset: PowerPresetModel, adapter: &ui::PowerPresetAdapter) {
     adapter.set_index(index);
     adapter.set_mode("Update".into());
     println!(">Editing preset:{}", preset.power_preset_name);
@@ -97,7 +97,7 @@ fn set_power(index: i32, preset: PowerPresetModel, adapter: &ui::CreatePowerPres
     // adapter.set_power10(preset.values.power10 as i32);
 }
 
-fn clear_power(adapter: &ui::CreatePowerPresetAdapter) {
+fn clear_power(adapter: &ui::PowerPresetAdapter) {
     adapter.set_mode("Create".into());
     adapter.set_preset(map_power_preset_to_slint(PowerPresetModel::default()));
     // adapter.set_preset_name("".into());

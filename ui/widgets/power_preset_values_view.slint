@@ -1,4 +1,4 @@
-import { ComboBox, LineEdit, VerticalBox, Button, SpinBox } from "std-widgets.slint";
+import { ComboBox, LineEdit, VerticalBox, Button, SpinBox, HorizontalBox } from "std-widgets.slint";
 import { MyComboBox } from "../common.slint";
 import { MyPowerValue } from "../widgets/my_power_value.slint";
 import { IconButton } from "../widgets/icon_button.slint";
@@ -27,14 +27,14 @@ export component PowerPresetValuesView {
         alignment: start;
         GridLayout {
             Row {
-                Rectangle {
+                HorizontalBox {
                     colspan: 2;
                     power-preset-label := Text {
+                        horizontal-alignment: left;
                         text: @tr("Power Preset");
                         color: TodoPalette.foreground;
                         font-size: FontSettings.body-strong.font-size;
                         font-weight: FontSettings.body-strong.font-weight;
-                        horizontal-alignment: left;
                         overflow: elide;
                     }
                     power-preset-input := ComboBox {

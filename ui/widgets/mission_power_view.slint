@@ -16,7 +16,14 @@ export component MissionPowerView inherits Rectangle {
 
         Button {
             text: is_accordion_expanded ? "Power Details" : "Power:" + PowerPresetAdapter.preset.preset-name;
-            clicked => { is_accordion_expanded = !is_accordion_expanded; }
+            clicked => { 
+                is_accordion_expanded = !is_accordion_expanded; 
+                if is_accordion_expanded {
+                    PowerPresetAdapter.mode = "MissionEdit";
+                } else {
+                    PowerPresetAdapter.mode = "";
+                }
+            }
         }
 
         if is_accordion_expanded: 
